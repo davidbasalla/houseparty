@@ -4,23 +4,28 @@ class ZooplaSearch
     api_key: Configs.fetch('ZOOPLA_API_KEY'),
     order_by: 'age',
     listing_status: 'rent',
-    furnished: 'unfurnished',
     page_size: 25,
     include_rented: false,
-    minimum_price: ((1400 * 12) / 52).to_i,
-    maximum_price: ((1800 * 12) / 52).to_i,
-    minimum_beds: '2',
+    minimum_price: ((1200 * 12) / 52).to_i,
+    maximum_price: ((1600 * 12) / 52).to_i,
+    minimum_beds: '1',
   }
+
+  DATE_FROM = "2018-01-01"
+  DATE_TO = "2018-05-20"
 
   SEARCHES = [
     {
-      area: 'Bethnal Green, London',
+      area: 'Finchley Road & Frognal Station, London',
     },
     {
-      area: 'Islington, London',
+      area: "St John's Wood, London, London",
     },
     {
-      area: 'Hackney, London',
+      area: 'Belsize Park, London',
+    },
+    {
+      area: 'Swiss Cottage, London',
     },
   ]
 
@@ -37,8 +42,8 @@ class ZooplaSearch
 
         source["from"] = Date.parse(source["available_from_date"])
 
-        unless source["from"] > Date.parse("2017-08-01") && source["from"] < Date.parse("2017-10-05")
-          puts "Not available in aug/sept: #{source["from"]}"
+        unless source["from"] > Date.parse(DATE_FROM) && source["from"] < Date.parse(DATE_TO)
+          puts "Not available in specific date range: #{source["from"]}"
           next
         end
 
